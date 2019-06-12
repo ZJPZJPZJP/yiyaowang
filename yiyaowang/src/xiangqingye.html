@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			*{margin:0;padding:0;}
+			.box0{margin:30px;position: relative;}
+			.smollbox{width:298px;height:298px;border:1px #0000FF solid;position:relative;float:left;
+			}
+			.smollbox img{width:298px;height:298px;}
+			.xf{opacity: 0.4;background: orange;position: absolute;left:0;top:0;
+			visibility: hidden;}
+			.bigbox{width:400px;height:400px;border:1px #0000FF solid;position:relative;
+			overflow: hidden;float:left;margin-left:70px;position:relative;visibility: hidden;}
+			.bigpic{width:700px;height:700px;position: absolute;left:0;top:0;}
+			#ulist {
+        position: absolute;
+        left: 0px;
+       top: 330px;
+        width: 340px;
+        height: 56px;
+        overflow: hidden;
+    }
+
+    #ulist a {
+        float: left;
+        width: 10px;
+        height: 54px;
+        border: 1px solid #ccc;
+        text-decoration: none;
+        line-height: 56px;
+        text-align: center;
+        background: #fff;
+    }
+
+    #list {
+        float: left;
+        margin-left: 18px;
+        width: 372px;
+        position: relative;
+    }
+
+    #list ul {
+        list-style: none;
+        float: left;
+        position: absolute;
+        left: 0px;
+        top: 0px;
+    }
+
+    #list ul li {
+        float: left;
+        width: 56px;
+        height: 56px;
+        padding-right: 6px;
+        cursor: pointer;
+    }
+
+    ul li img {
+        width: 52px;
+        height: 52px;
+        border: 1px solid #ccc;
+    }
+
+    #right {
+        position: absolute;
+        right: 0px;
+        top: 0px;
+        color: #333;
+    }
+
+    #left {
+        position: absolute;
+        left: 0px;
+        top: 0px;
+        z-index: 2;
+        color: #fff;
+    }
+
+		</style>
+	</head>
+	<body>
+		<div>
+			<ul>
+				<li><a href="">首页</a></li>
+				<li><a href="">医疗器械</a></li>
+				<li><a href="">检测器材</a></li>
+				<li><a href="">血压计</a></li>
+				<li>欧姆龙 臂式电子血压计 HEM-8713</li>
+			</ul>
+		</div>
+		<div class='box0'>
+			<div class='smollbox'>
+				<img src="https://p3.maiyaole.com/img/item/201906/03/org_2019060319071242.jpg" alt="">
+				<div class='xf'></div>
+			</div>
+			<div class='bigbox'>
+				<img src="https://p3.maiyaole.com/img/item/201906/03/org_2019060319071242.jpg" class="bigpic">
+			</div>
+		<div id="ulist">
+            <a href="javascript:;" id="left">&lt;</a>
+            <div id="list">
+                <ul>
+                    <li><img src="https://p3.maiyaole.com/img/item/201906/03/org_2019060319071242.jpg" alt=""></li>
+                    <li><img src="https://p3.maiyaole.com/img/item/201809/19/org_20180919092201652.jpg" alt=""></li>
+                    <li><img src="https://p2.maiyaole.com/img/item/201902/25/org_20190225091656997.jpg" alt=""></li>
+                    <li><img src="https://p2.maiyaole.com/img/item/201902/25/org_20190225091920483.jpg" alt=""></li>
+                    <li><img src="https://p3.maiyaole.com/img/item/201902/25/org_20190225091921533.jpg" alt=""></li>
+                    <li><img src="https://p1.maiyaole.com/img/item/201902/25/org_20190225091923167.jpg" alt=""></li>
+                    <li><img src="https://p2.maiyaole.com/img/item/201902/25/org_20190225091925203.jpg" alt=""></li>
+					<li><img src="https://p4.maiyaole.com/img/item/201905/05/org_2019050511553338.jpg" alt=""></li>
+					
+                   
+                </ul>
+            </div>
+            <a href="javascript:;" id="right">&gt;</a>
+        </div>
+
+		</div>
+		
+		
+		<script src="../js/jquery.js"></script>
+		<script>
+			
+				//1先取元素
+					var $box0=$('.box0');
+				    var $smollbox=$('.smollbox');
+					var $xf=$('.xf');
+					var $bigbox=$('.bigbox'); 
+					var $bigpic=$('.bigpic');
+
+					$smollbox.hover(function(){
+						$xf.css('visibility','visible');
+						$bigbox.css('visibility','visible');
+						$smollbox.on('mousemove',function(e){
+							
+							var l=e.pageX-$box0.offset().left-$xf.width()/2
+							var t=e.pageY-$box0.offset().top-$xf.height()/2
+							if(l<0){
+								l=0
+							}else if(l>$smollbox.width()-$xf.width()){
+								l=$smollbox.width()-$xf.width()
+							}
+							if(t<0){
+								t=0
+							}else if(t>$smollbox.height()-$xf.height()){
+								t=$smollbox.height()-$xf.height()
+									}
+							$xf.css({
+							left:l,
+							top:t,
+							})
+							
+							$bigpic.css({
+								left:-l*$bili,
+								top:-t*$bili,
+							})
+						})
+					},function(){
+						$xf.css('visibility','hidden')
+						$bigbox.css('visibility','hidden')
+					})	
+					
+						//求xf的宽高
+						$xf.css({
+							width:$bigbox.width()*$smollbox.width()/$bigpic.width()
+						})
+						$xf.css({
+							height:$bigbox.height()*$smollbox.height()/$bigpic.height()
+						})
+						//求移动的比例
+						$bili=$bigbox.width()/$xf.width();
+						//图片切换的效果
+						var $li=$('#list ul li')
+						$li.on('click',function(){
+							let $imgurl=$(this).find('img').attr('src')
+							
+							$smollbox.find('img').attr('src',$imgurl)
+							$bigpic.attr('src',$imgurl)
+						})
+						var $right=$('#right')
+						var $left=$('#left')
+						var $listul=$('#list ul')
+						var num=5
+						let $liwidth=$li.eq(0).outerWidth(true)
+						$right.on('click',function(){
+							if($li.length>num){
+								num++
+								$left.css('color',' #333')
+								
+								if(num==$li.length){
+									$right.css('color',' #fff')
+								}
+								$listul.animate({
+									left:-(num-5)*$liwidth
+								})
+								
+							}
+						})
+						$left.on('click',function(){
+							if(num>5){
+								num--
+								$right.css('color',' #333')
+								if(num==5){
+									$left.css('color',' #fff')
+								}
+								$listul.animate({
+									left:-(num-5)*$liwidth
+								})
+							}
+						})
+						
+		</script>
+	</body>
+</html>				
